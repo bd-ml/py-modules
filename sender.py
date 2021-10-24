@@ -2,10 +2,10 @@ import pika
 import json
 
 RABBIT_MQ_SERVER="localhost"
-OUTPUT_QUEUE="test"
+OUTPUT_QUEUE="video"
 
 # payload
-meta = '{"scrape_id":"190sdflasdf902130asdf","scrape_timestamp":"2021-10-10 10:30PM","source":{"id":"1890203","name":"Bangla Vision","type":"Youtube"},"video":{"title":"Banglavision News","publish_date":"2021-10-08 02:00PM","duration":"18m54s","url":"https://youtu.be/2ia0aLimZJ4"}}'
+meta = '{"scrape_id":"190sdflasdf902130asdf","scrape_timestamp":"2021-10-10 10:30PM","source":{"id":"1890203","name":"Bangla Vision","type":"YouTube"},"video":{"title":"Banglavision News","publish_date":"2021-10-08 02:00PM","duration":"18m54s","url":"https://youtu.be/RukHKZNlBmE"}}'
 
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(host=RABBIT_MQ_SERVER))
