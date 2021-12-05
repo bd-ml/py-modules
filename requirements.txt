@@ -1,1 +1,2 @@
 pika >= 1.2.0
+git+https://github.com/minio/minio-py@7.1.2#egg=minio
