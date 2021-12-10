@@ -1,13 +1,13 @@
 version: "3.9"
 services:
-  #  rabbitmq:
-  #    image: rabbitmq:3.9-management
-  #    ports:
-  #      - "5672:5672"
-  #      - "15672:15672"
-  #    restart: always
-  #    logging:
-  #      driver: "none"
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    restart: on-failure
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  #      logging:
+  #        driver: "none"
   minio:
     image: quay.io/minio/minio
     command: server /data --console-address ":9001"

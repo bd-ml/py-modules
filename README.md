@@ -1,32 +1,87 @@
-# py-rmq
+# py-modules
 
-Python template for interacting with a  RabbitMQ Server
+Various Python helper modules. Currently, it has helper module for interacting with the following tools:
 
+- RabbitMQ
+- Minio
 
 ## Usage
 
-**Install dependencies:**
+### RabbitMQ
 
-At first, run the following command in this repo root directory to install necessary python libraries.
+**Start Consumer:**
 
-```bash
-pip3 install -r ./requirements.tx
+```python
+import rabbitmq
+
+
+def event_handler(message):
+    print("Received: ", message)
+
+
+consumer = rabbitmq.Consumer(handler=event_handler)
+try:
+    consumer.start()
+except KeyboardInterrupt:
+    consumer.stop()
 ```
 
-**Start RabbitMQ Server:**
+**Publish a Message:**
 
-```bash
-docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.9-management
+```python
+import rabbitmq
+
+publisher = rabbitmq.Publisher()
+msg = 'Hello world!'
+try:
+    publisher.publish(msg)
+except Exception as e:
+    raise Exception("Failed to publish message.") from e
 ```
 
-**Start RabbitMQ Receiver:**
+### Minio
 
-```bash
-python3 ./reciever.py
+**Upload a file:**
+
+```python
+import minio_client
+
+bucket = "my-bucket"
+filename = "/my/sample/file.txt"
+
+minio = minio_client.MinioClient(bucket)
+minio.upload_file(filename)
 ```
 
-**Send Message:**
+**Download a file:**
+
+```python
+import minio_client
+
+bucket = "my-bucket"
+filename = "/my/sample/file.txt"
+output_filename = "/my/sample/output/file.txt"
+
+minio = minio_client.MinioClient(bucket)
+minio.download_file(filename, output_filename)
+```
+
+## Testing
+
+**Start Minio and RabbitMQ Server:**
 
 ```bash
-python3 ./sender.py
+docker-compose up
+```
+
+**Run RabbitMQ Tests:**
+
+```shell
+python3 -m unittest -v test_rabbitmq.py
+```
+
+**Run Minio Server Tests:**
+
+```shell
+python3 -m unittest -v test_minio_client.py
 ```

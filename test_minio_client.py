@@ -42,6 +42,8 @@ def get_bucket_name(test_id):
 class TestMinioClient(unittest.TestCase):
     def setUp(self):
         setup_minio_envs()
+        self.bucket = get_bucket_name(self.id())
+        self.minio = minio_client.MinioClient(self.bucket)
 
     def tearDown(self):
         # cleanup sample data (if exist)
@@ -54,16 +56,14 @@ class TestMinioClient(unittest.TestCase):
             self.fail("Failed to remove directory: " + data_dir)
 
         # delete the bucket from minio
-        bucket = get_bucket_name(self.id())
         try:
-            minio_client.delete_bucket(bucket)
+            self.minio.delete_bucket()
         except Exception as e:
             self.fail(e)
 
     def test_create_bucket(self):
-        bucket = get_bucket_name(self.id())
         try:
-            minio_client.create_bucket(bucket)
+            self.minio.create_bucket()
         except Exception as e:
             self.fail(e)
 
@@ -74,9 +74,8 @@ class TestMinioClient(unittest.TestCase):
         write_sample_file(data_dir)
 
         # upload file
-        bucket = get_bucket_name(self.id())
         try:
-            minio_client.upload_file(bucket, filepath)
+            self.minio.upload_file(filepath)
         except Exception as e:
             self.fail(e)
 
@@ -87,16 +86,15 @@ class TestMinioClient(unittest.TestCase):
         write_sample_file(data_dir)
 
         # upload file
-        bucket = get_bucket_name(self.id())
         try:
-            minio_client.upload_file(bucket, filepath)
+            self.minio.upload_file(filepath)
         except Exception as e:
             self.fail(e)
 
         # download file
         output_file = data_dir + "/download/" + sample_file_name
         try:
-            minio_client.download_file(bucket, filepath, output_file)
+            self.minio.download_file(filepath, output_file)
         except Exception as e:
             self.fail(e)
 
@@ -118,15 +116,14 @@ class TestMinioClient(unittest.TestCase):
         write_sample_file(data_dir)
 
         # upload file
-        bucket = get_bucket_name(self.id())
         try:
-            minio_client.upload_file(bucket, filepath)
+            self.minio.upload_file(filepath)
         except Exception as e:
             self.fail(e)
 
         # delete the sample file
         try:
-            minio_client.delete_file(bucket, filepath)
+            self.minio.delete_file(filepath)
         except Exception as e:
             self.fail(e)
 
