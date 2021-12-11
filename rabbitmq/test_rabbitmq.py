@@ -8,14 +8,13 @@ from . import rabbitmq
 
 def setup_rabbitmq_envs():
     os.environ["RABBITMQ_SERVER_URL"] = "localhost"
-    os.environ["INPUT_QUEUE"] = "test"
-    os.environ["OUTPUT_QUEUE"] = "test"
 
 
 class TestRabbitMQ(unittest.TestCase):
     def setUp(self):
         setup_rabbitmq_envs()
-        self.consumer = rabbitmq.Consumer(self.handler)
+        self.queue = "test"
+        self.consumer = rabbitmq.Consumer(self.queue, self.handler)
         self.thread = Thread(target=self.consumer.start)
         self.received_msg = None
 
@@ -50,7 +49,7 @@ class TestRabbitMQ(unittest.TestCase):
         self.wait_until_channel_opened()
 
         print("Publishing a message.....")
-        publisher = rabbitmq.Publisher()
+        publisher = rabbitmq.Publisher(self.queue)
         msg = 'Hello world!'
         try:
             publisher.publish(msg)

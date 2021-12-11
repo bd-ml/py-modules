@@ -11,9 +11,9 @@ logging.basicConfig(level=LOG_LEVEL)
 
 
 class Consumer:
-    def __init__(self, handler):
+    def __init__(self, queue, handler):
         self.server_url = os.getenv("RABBITMQ_SERVER_URL")
-        self.queue = os.getenv("INPUT_QUEUE")
+        self.queue = queue
 
         # Connect to RabbitMQ using the default parameters
         self.connection = None
@@ -161,9 +161,9 @@ class Consumer:
 
 
 class Publisher:
-    def __init__(self):
+    def __init__(self, queue):
         self.server_url = os.getenv("RABBITMQ_SERVER_URL")
-        self.queue = os.getenv("OUTPUT_QUEUE")
+        self.queue = queue
 
     def publish(self, payload):
         connection = pika.BlockingConnection(
