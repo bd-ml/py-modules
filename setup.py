@@ -14,6 +14,6 @@ setup(
     packages=find_namespace_packages(include=('rabbitmq', 'minio_client')),
     install_requires=[
         "pika",
-        "git+https://github.com/minio/minio-py@7.1.2#egg=minio",
+        "minio",
     ]
 )
