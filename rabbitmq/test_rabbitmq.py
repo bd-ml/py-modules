@@ -1,9 +1,9 @@
-import unittest
-
-import rabbitmq
 import os
 import time
+import unittest
 from threading import Thread
+
+from . import rabbitmq
 
 
 def setup_rabbitmq_envs():

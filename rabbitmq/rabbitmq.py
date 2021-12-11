@@ -1,10 +1,9 @@
+import functools
+import logging
 import os
-import json
 import time
 
 import pika
-import logging
-import functools
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 

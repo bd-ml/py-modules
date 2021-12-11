@@ -1,7 +1,7 @@
-import os
 import logging
+import os
+
 from minio import Minio
-from minio.deleteobjects import DeleteObject
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 

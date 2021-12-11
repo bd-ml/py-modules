@@ -3,7 +3,7 @@ import os
 import shutil
 import unittest
 
-import minio_client
+from . import minio_client
 
 sample_file_name = "sample.txt"
 
@@ -55,7 +55,7 @@ class TestMinioClient(unittest.TestCase):
         except:
             self.fail("Failed to remove directory: " + data_dir)
 
-        # delete the bucket from minio
+        # delete the bucket from minio_client
         try:
             self.minio.delete_bucket()
         except Exception as e:

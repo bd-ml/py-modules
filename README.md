@@ -12,6 +12,7 @@ Various Python helper modules. Currently, it has helper module for interacting w
 **Start Consumer:**
 
 ```python
+
 import rabbitmq
 
 
@@ -29,6 +30,7 @@ except KeyboardInterrupt:
 **Publish a Message:**
 
 ```python
+
 import rabbitmq
 
 publisher = rabbitmq.Publisher()
@@ -44,6 +46,7 @@ except Exception as e:
 **Upload a file:**
 
 ```python
+
 import minio_client
 
 bucket = "my-bucket"
@@ -56,6 +59,7 @@ minio.upload_file(filename)
 **Download a file:**
 
 ```python
+
 import minio_client
 
 bucket = "my-bucket"
@@ -77,11 +81,11 @@ docker-compose up
 **Run RabbitMQ Tests:**
 
 ```shell
-python3 -m unittest -v test_rabbitmq.py
+python3 -m unittest -v rabbitmq/test_rabbitmq.py
 ```
 
 **Run Minio Server Tests:**
 
 ```shell
-python3 -m unittest -v test_minio_client.py
+python3 -m unittest -v minio_client/test_minio_client.py
 ```
