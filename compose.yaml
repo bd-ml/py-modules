@@ -2,7 +2,7 @@ version: "3.9"
 services:
   rabbitmq:
     image: rabbitmq:3.9-management
-    restart: on-failure
+    restart: never
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -11,7 +11,7 @@ services:
   minio:
     image: quay.io/minio/minio
     command: server /data --console-address ":9001"
-    restart: on-failure
+    restart: never
     ports:
       - "9000:9000"
       - "9001:9001"
